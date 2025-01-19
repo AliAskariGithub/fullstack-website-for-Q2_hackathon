@@ -54,7 +54,10 @@ const SecurePage = () => {
         >
           Secure Page
         </h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-4 flex flex-col justify-center items-center w-full"
+        >
           <div>
             <label
               htmlFor="question1"
@@ -68,7 +71,7 @@ const SecurePage = () => {
               name="question1"
               value={answers.question1}
               onChange={handleInputChange}
-              className={`ml-2 rounded px-3 py-1 transition-all duration-300 focus:outline-none bg-[#f0d5a6] text-[#8f613c] w-48 md:w-72 opacity-100 ${satisfy.className}`}
+              className={`rounded px-3 py-1 transition-all duration-300 focus:outline-none bg-[#f0d5a6] text-[#8f613c] w-full opacity-100 ${satisfy.className}`}
             />
           </div>
           <div>
@@ -84,7 +87,7 @@ const SecurePage = () => {
               name="question2"
               value={answers.question2}
               onChange={handleInputChange}
-              className={`ml-2 rounded px-3 py-1 transition-all duration-300 focus:outline-none bg-[#f0d5a6] text-[#8f613c] w-48 md:w-72 opacity-100 ${satisfy.className}`}
+              className={`rounded px-3 py-1 transition-all duration-300 focus:outline-none bg-[#f0d5a6] text-[#8f613c] w-full opacity-100 ${satisfy.className}`}
             />
           </div>
           <div>
@@ -100,7 +103,7 @@ const SecurePage = () => {
               name="question3"
               value={answers.question3}
               onChange={handleInputChange}
-              className={`ml-2 rounded px-3 py-1 transition-all duration-300 focus:outline-none bg-[#f0d5a6] text-[#8f613c] w-48 md:w-72 opacity-100 ${satisfy.className}`}
+              className={`rounded px-3 py-1 transition-all duration-300 focus:outline-none bg-[#f0d5a6] text-[#8f613c] w-full opacity-100 ${satisfy.className}`}
             />
           </div>
           {error && <p className="text-red-500 text-sm">{error}</p>}

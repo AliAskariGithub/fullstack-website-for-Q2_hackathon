@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
+import { Toaster } from "@/components/ui/sonner";
+import Sidebar from "@/components/Sidebar";
 
 export const metadata: Metadata = {
   title: "Foodily",
@@ -16,7 +18,11 @@ export default function RootLayout({
     <ClerkProvider>
     <html lang="en">
       <body>
+      <div>
+        <Sidebar />
+      </div>
         {children}
+        <Toaster />
       </body>
     </html>
     </ClerkProvider>

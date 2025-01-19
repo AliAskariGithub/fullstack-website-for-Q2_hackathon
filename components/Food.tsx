@@ -6,11 +6,12 @@ import { IoCartSharp } from "react-icons/io5";
 import Link from "next/link";
 import Image from "next/image";
 import { MenuItem } from "@/types";
-import Sidebar from "./Sidebar";
-import Loader from "./Loader";
 import { FaPlus } from "react-icons/fa";
 import { FaMinus } from "react-icons/fa";
 import { IoMdArrowRoundForward } from "react-icons/io";
+import Feedback from "./Feeback";
+import { toast } from "sonner";
+import { useUser } from "@clerk/nextjs";
 
 const caveat = Caveat({ weight: "600", subsets: ["latin"] });
 const satisfy = Satisfy({ weight: "400", subsets: ["latin"] });
@@ -23,6 +24,43 @@ const Food = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
+  const { user } = useUser();
+
+  const addHandleMultipleFunction = () => {
+    const now = new Date();
+    const formattedDateTime = `${now.toLocaleDateString(undefined, {
+      weekday: "long",
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+    })} at ${now.toLocaleTimeString()}`;
+
+    toast("Your order has been Added", {
+      description: formattedDateTime,
+      action: {
+        label: "Undo",
+        onClick: () => console.log("Undo"),
+      },
+    });
+  };
+
+  const subHandleMultipleFunction = () => {
+    const now = new Date();
+    const formattedDateTime = `${now.toLocaleDateString(undefined, {
+      weekday: "long",
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+    })} at ${now.toLocaleTimeString()}`;
+
+    toast("Your order has been Removed", {
+      description: formattedDateTime,
+      action: {
+        label: "Undo",
+        onClick: () => console.log("Undo"),
+      },
+    });
+  };
 
   useEffect(() => {
     const fetchMenu = async () => {
@@ -53,6 +91,7 @@ const Food = () => {
     { id: 1, image: "/weekly-images/slider01.png", url: "/weekly-menu" },
     { id: 2, image: "/weekly-images/slider02.png", url: "/special-menu" },
     { id: 3, image: "/weekly-images/slider03.png", url: "/our-menu" },
+    { id: 4, image: "/weekly-images/slider04.png", url: "/" },
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -78,12 +117,10 @@ const Food = () => {
 
   return (
     <div className="flex min-h-screen px-4 w-full">
-      <div>
-        <Sidebar />
-      </div>
+      
 
-      <div className="flex flex-col w-full ml-14">
-        <div className="flex justify-end items-center gap-2 fixed z-10 right-5 bg-opacity-10 backdrop-blur-md py-3  bg-darkpeach h-max w-full">
+      <div className="flex flex-col w-full ml-2 md:ml-14">
+        <div className="flex justify-end items-center gap-2 fixed z-10 pr-10 md:pr-24 bg-opacity-10 backdrop-blur-md py-3  bg-darkpeach h-max w-full">
           <div
             className={`flex items-center duration-300 transition-all pr-2 py-1 rounded-xl ${
               isExpanded ? " bg-[#f0d5a6]" : "w-max"
@@ -105,7 +142,7 @@ const Food = () => {
             />
           </div>
           <Link
-            href="/cart"
+            href={user ? "/cart" : "/sign-in"}
             className="w-max cursor-pointer  text-[#8f613c] hover:text-[#744732] hover:scale-125 duration-200 transition-all"
           >
             <div className="w-4 h-4 flex justify-center items-center bg-[#e9b966] rounded-full fixed ml-4 -mt-0.5 border border-[#744732]">
@@ -173,21 +210,44 @@ const Food = () => {
           </div>
         </div>
 
-        <div className="flex flex-col w-full mt-40">
+        <div className="flex flex-col items-center w-full mt-40">
           <h1
-            className={`text-4xl font-bold text-center mb-8 text-[#8f613c] ${chakra_petch.className}`}
+            className={`text-4xl font-bold text-center mb-8 text-[#8f613c] relative z-10 ${chakra_petch.className}`}
           >
             Special Menu
           </h1>
 
           {loading ? (
-            <div className="text-center text-xl">
-              <Loader />
+            <div className="w-full flex justify-center items-center">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full max-w-4xl">
+                {Array.from({ length: 8 }).map((_, index) => (
+                  <div
+                    key={index}
+                    className="flex flex-col justify-between items-center max-w-sm rounded-xl shadow-lg bg-[#8f613c] animate-pulse"
+                  >
+                    <div className="w-full h-56 bg-[#e9b966] rounded-t-lg"></div>
+
+                    <div className="p-4 w-full">
+                      <div className="w-3/4 h-6 bg-[#e1d3b6] rounded mb-2"></div>
+                      <div className="w-full h-4 bg-[#e9b966] rounded mb-2"></div>
+                      <div className="flex items-center justify-between mt-5">
+                        <div className="w-1/3 h-6 bg-[#e1d3b6] rounded"></div>
+                        <div className="w-1/4 h-6 bg-[#e9b966] rounded"></div>
+                      </div>
+                      <div className="flex -space-x-1 w-full mt-4">
+                        <div className="w-1/3 h-10 bg-[#e9b966] rounded-l-xl"></div>
+                        <div className="w-1/3 h-10 bg-[#e1d3b6]"></div>
+                        <div className="w-1/3 h-10 bg-[#e9b966] rounded-r-xl"></div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           ) : (
-            <div className="w-full flex justify-center itrems-center">
+            <div className="w-full flex justify-center items-center slide-in-bottom">
               {filteredMenu.length > 0 ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full max-w-4xl">
+                <div className="grid  grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full max-w-4xl">
                   {filteredMenu.slice(0, 8).map((item) => (
                     <div
                       key={item.id}
@@ -227,13 +287,17 @@ const Food = () => {
                           </span>
                         </div>
                         <div className="flex -space-x-1 w-full">
-                          <button className="mt-4 button-hover-effect w-full rounded-l-xl">
+                          <button
+                            onClick={subHandleMultipleFunction}
+                            className="mt-4 button-hover-effect w-full rounded-l-xl"
+                          >
                             <span
                               className={`${cinzel.className} relative left-[40%]`}
                             >
                               <FaMinus size={20} />
                             </span>
                           </button>
+
                           <button className="mt-4 border-4 border-[#8f613c] w-full">
                             <span
                               className={`${cinzel.className} text-md lg:text-sm text-[#8f613c]`}
@@ -241,7 +305,11 @@ const Food = () => {
                               Items
                             </span>
                           </button>
-                          <button className=" mt-4 button-hover-effect  rounded-r-xl w-full">
+
+                          <button
+                            onClick={addHandleMultipleFunction}
+                            className=" mt-4 button-hover-effect  rounded-r-xl w-full"
+                          >
                             <span
                               className={`${cinzel.className} relative left-[40%]`}
                             >
@@ -260,6 +328,14 @@ const Food = () => {
               )}
             </div>
           )}
+
+          <Link href={"/special-menu"} className="text-sm button-hover-effect mt-10 mb-20 w-32 bg-transparent rounded-full">
+          <span className={`flex justify-center items-center gap-2 ${cinzel.className}`}>See More <IoMdArrowRoundForward /></span>
+          </Link>
+        </div>
+
+        <div>
+          <Feedback />
         </div>
       </div>
     </div>

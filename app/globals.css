@@ -177,3 +177,59 @@ body {
     margin-top: 0;
   }
 }
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #ffecd6;
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, #f4d35e, #f7b32b);
+  border-radius: 10px;
+  border: 2px solid #ffecd6;
+  position: relative;
+  animation: thumb-animation 1.5s linear infinite;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, #f7b32b, #f4a261);
+}
+
+::-webkit-scrollbar-corner {
+  background: #ffecd6;
+}
+
+@keyframes thumb-animation {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 50% 50%;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}
+
+/* Define the slide-in-bottom animation */
+@keyframes slide-in-bottom {
+  0% {
+    transform: translateY(70px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Apply the animation to your class */
+.slide-in-bottom {
+  animation: slide-in-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}

@@ -90,8 +90,12 @@ const SpecialMenu = () => {
         </Link>
       </div>
 
-      <div className="flex flex-col w-full ml-14 mt-28">
-        <h1 className="text-4xl font-bold text-center mb-8">Special Menu</h1>
+      <div className="flex flex-col w-full ml-14 mt-24">
+      <h1
+            className={`text-4xl font-bold text-center mb-8 text-[#8f613c] relative z-10 ${chakra_petch.className}`}
+          >
+            Special Menu
+          </h1>
 
         {loading ? (
           <div className="text-center text-xl">
