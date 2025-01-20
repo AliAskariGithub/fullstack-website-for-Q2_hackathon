@@ -1,7 +1,15 @@
 "use client";
 
+import { Caveat, Chakra_Petch, Satisfy } from "next/font/google";
+import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { IoMdArrowRoundForward } from "react-icons/io";
+import { IoIosAdd } from "react-icons/io";
+
+const caveat = Caveat({ weight: "600", subsets: ["latin"] });
+const satisfy = Satisfy({ weight: "400", subsets: ["latin"] });
+const chakra_petch = Chakra_Petch({ weight: "700", subsets: ["latin"] });
+
 
 const feedbacks = [
   {
@@ -59,63 +67,79 @@ const Feedback = () => {
   }, []);
 
   return (
-    <div className="flex flex-col items-center gap-6 p-6 relative bg-gray-50 rounded-lg shadow-md">
-      {/* Top Header */}
+    <div className="flex flex-col items-center gap-6 p-6 relative bg-darkpeach rounded-lg shadow-md">
+
       <div className="flex justify-between w-full items-center">
-        <h1 className="text-2xl font-bold text-gray-800">Feedback</h1>
+        <h1 className={`text-4xl font-bold text-center text-[#8f613c] relative z-10 ${chakra_petch.className}`}>Feedbacks</h1>
         <button
-          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
-          onClick={() => alert("Feedback button clicked!")}
+          className="text-sm absolute  button-hover-effect-border bg-transparent rounded-full"
+          onClick={() => alert("Comming Soon")}
         >
-          Feedback
+          <span className="px-2 flex justify-center items-center gap-1"><IoIosAdd size={24}/> Feedback </span>
         </button>
       </div>
 
-      {/* Feedback Slider */}
-      <div className="relative w-full max-w-xl overflow-hidden">
+      <div className="relative w-full max-w-xl overflow-hidden ">
         <div
-          className="flex transition-transform duration-500"
+          className="flex justify-start items-center transition-transform duration-500"
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
         >
           {feedbacks.map((feedback, index) => (
             <div
               key={index}
-              className="flex-shrink-0 w-full text-center p-4 bg-white rounded-lg shadow-lg"
+              className="flex-shrink-0 flex justify-start items-center w-full p-8 rounded-lg shadow-lg"
             >
-              <p className="text-lg italic text-gray-700">{feedback.review}</p>
-              <h3 className="mt-4 text-xl font-bold text-gray-900">
-                - {feedback.name}
-              </h3>
-              <p className="text-yellow-500 mt-2">{feedback.rating}</p>
+              <div className="flex items-center">
+              <Image
+                src={"/Team01.png"}
+                alt="Team 01"
+                width={100}
+                height={100}
+                className="rounded-full w-16 h-16"
+              />
+            </div>
+            
+            <div className="flex flex-col justify-center items-start pl-2">
+              <div className="flex justify-between items-center w-full">
+              <h1
+                className={`text-2xl font-bold text-[#8f613c] ${caveat.className}`}
+              >
+                {feedback.name}
+              </h1>
+              <p  className={`text-yellow-500 text-sm mt-1 ${satisfy.className}`}>{feedback.rating}</p>
+              </div>
+              <p className={`text-[#8f613c] text-sm mt-1 ${satisfy.className}`}>{feedback.review}</p>
+              
+              </div>
+             
             </div>
           ))}
         </div>
 
-        {/* Navigation Buttons */}
         <button
           onClick={goToPreviousSlide}
-          className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-gray-200 text-gray-700 p-2 rounded-full hover:bg-gray-300"
+          className="absolute w-10 h-10 top-1/2 left-2 rotate-180 flex justify-center items-center -translate-y-1/2 bg-[#8f592d] bg-opacity-50 duration-150 transition text-white p-2 rounded-full hover:bg-opacity-75"
         >
-          <IoMdArrowRoundForward className="rotate-180" />
+          <IoMdArrowRoundForward/>
         </button>
+
         <button
           onClick={goToNextSlide}
-          className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-gray-200 text-gray-700 p-2 rounded-full hover:bg-gray-300"
+         className="absolute w-10 h-10 top-1/2 right-2 flex justify-center items-center -translate-y-1/2 bg-[#8f592d] bg-opacity-50 duration-150 transition text-white p-2 rounded-full hover:bg-opacity-75"
         >
           <IoMdArrowRoundForward />
         </button>
       </div>
 
-      {/* Indicators */}
       <div className="flex justify-center space-x-2 mt-4">
         {feedbacks.map((_, index) => (
           <button
             key={index}
             onClick={() => goToSlide(index)}
-            className={`w-3 h-3 rounded-full ${
+            className={`border-2 rounded-full transition-all duration-300 ${
               index === currentIndex
-                ? "bg-blue-600"
-                : "bg-gray-300 hover:bg-gray-400"
+                ? "bg-darkorange w-3 h-3 border-darkpeach"
+                : "bg-peach w-2 h-2 border-darkpeach"
             }`}
           ></button>
         ))}

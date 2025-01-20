@@ -6,7 +6,8 @@ interface itemsType {
         price: number, 
         image: string, 
         description: string, 
-        rating: number
+        rating: number,
+        popular: string
       }
     ]
 }
@@ -22,13 +23,8 @@ interface MenuItem {
   price: string;
   description: string;
   image_url: string;
-  ratings: {
-    fivestar: string;
-    fourstar: string;
-    threestar: string;
-    twostar: string;
-    onestar: string;
-  };
+  popular: string;
+  ratings: number;
 }
 
-export { items, weeklyMenu, MenuItem };
+export { itemsType, weeklyMenu, MenuItem };

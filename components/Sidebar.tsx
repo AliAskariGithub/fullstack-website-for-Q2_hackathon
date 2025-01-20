@@ -27,13 +27,13 @@ const Sidebar = () => {
       <FiSidebar
         onClick={toggleSidebar}
         size={20}
-        className={`fixed top-5 z-50 cursor-pointer duration-150 transition-all text-[#8f613c] ${
+        className={`fixed top-5 z-50 duration-150 transition-all text-[#8f613c] ${
           isExpanded ? "left-[182px] " : "md:left-[70px] left-6"
         }`}
       />
 
       <div
-        className={`flex flex-col h-full  z-20 bg-[#e9b966] md:px-4 md:pr-10 fixed top-0 left-0 overflow-hidden duration-200 transition-all ${
+        className={`flex flex-col h-full  z-50 bg-[#e9b966] md:px-4 md:pr-10 fixed top-0 left-0 overflow-hidden duration-200 transition-all ${
           isExpanded ? "w-44 px-4" : "w-3 "
         }`}
       >

@@ -91,11 +91,11 @@ const SpecialMenu = () => {
       </div>
 
       <div className="flex flex-col w-full ml-14 mt-24">
-      <h1
-            className={`text-4xl font-bold text-center mb-8 text-[#8f613c] relative z-10 ${chakra_petch.className}`}
-          >
-            Special Menu
-          </h1>
+        <h1
+          className={`text-4xl font-bold text-center mb-8 text-[#8f613c] relative z-10 ${chakra_petch.className}`}
+        >
+          Special Menu
+        </h1>
 
         {loading ? (
           <div className="text-center text-xl">
@@ -104,7 +104,7 @@ const SpecialMenu = () => {
         ) : (
           <div className="w-full flex justify-center itrems-center">
             {filteredMenu.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full max-w-4xl">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 slide-in-bck-center lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full max-w-4xl">
                 {filteredMenu.map((item) => (
                   <div
                     key={item.id}
@@ -135,32 +135,32 @@ const SpecialMenu = () => {
                           Rs {item.price}
                         </span>
                         <span className="text-lg font-bold">
-                          {item.ratings.fivestar}
-                          {item.ratings.fourstar}
-                          {item.ratings.threestar}
-                          {item.ratings.twostar}
-                          {item.ratings.onestar}
+                          {item.ratings}
                         </span>
                       </div>
                       <div className="flex -space-x-1 w-full">
-                                                <button className="mt-4 button-hover-effect w-full rounded-l-xl">
-                                                  <span className={`${cinzel.className} relative left-[40%]`}>
-                                                  <FaMinus size={20}/>
-                                                  </span>
-                                                </button>
-                                                <button className="mt-4 border-4 border-[#8f613c] w-full">
-                                                  <span
-                                                    className={`${cinzel.className} text-lg text-[#8f613c]`}
-                                                  >
-                                                    Items
-                                                  </span>
-                                                </button>
-                                                <button className=" mt-4 button-hover-effect  rounded-r-xl w-full">
-                                                  <span className={`${cinzel.className} relative left-[40%]`}>
-                                                  <FaPlus size={20}/>
-                                                  </span>
-                                                </button>
-                                              </div>
+                        <button className="mt-4 button-hover-effect w-full rounded-l-xl">
+                          <span
+                            className={`${cinzel.className} relative left-[40%]`}
+                          >
+                            <FaMinus size={20} />
+                          </span>
+                        </button>
+                        <button className="mt-4 border-4 border-[#8f613c] w-full">
+                          <span
+                            className={`${cinzel.className} text-lg text-[#8f613c]`}
+                          >
+                            Items
+                          </span>
+                        </button>
+                        <button className=" mt-4 button-hover-effect  rounded-r-xl w-full">
+                          <span
+                            className={`${cinzel.className} relative left-[40%]`}
+                          >
+                            <FaPlus size={20} />
+                          </span>
+                        </button>
+                      </div>
                     </div>
                   </div>
                 ))}

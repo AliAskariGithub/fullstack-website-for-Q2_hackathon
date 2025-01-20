@@ -5,13 +5,24 @@ import { Caveat, Chakra_Petch, Cinzel, Satisfy } from "next/font/google";
 import { IoCartSharp } from "react-icons/io5";
 import Link from "next/link";
 import Image from "next/image";
-import { MenuItem } from "@/types";
 import { FaPlus } from "react-icons/fa";
 import { FaMinus } from "react-icons/fa";
 import { IoMdArrowRoundForward } from "react-icons/io";
 import Feedback from "./Feeback";
 import { toast } from "sonner";
 import { useUser } from "@clerk/nextjs";
+import MainSection from "./MainSection";
+
+interface SpecialMenu {
+  id: number;
+  food: string;
+  description: string;
+  price: number;
+  category: string;
+  rating: number;
+  popular: string;
+  image_url: string;
+}
 
 const caveat = Caveat({ weight: "600", subsets: ["latin"] });
 const satisfy = Satisfy({ weight: "400", subsets: ["latin"] });
@@ -19,8 +30,8 @@ const chakra_petch = Chakra_Petch({ weight: "700", subsets: ["latin"] });
 const cinzel = Cinzel({ weight: "800", subsets: ["latin"] });
 
 const Food = () => {
-  const [menu, setMenu] = useState<MenuItem[]>([]);
-  const [filteredMenu, setFilteredMenu] = useState<MenuItem[]>([]);
+  const [menu, setMenu] = useState<SpecialMenu[]>([]);
+  const [filteredMenu, setFilteredMenu] = useState<SpecialMenu[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
@@ -87,6 +98,7 @@ const Food = () => {
   const toggleSearch = () => {
     setIsExpanded((prev) => !prev);
   };
+
   const slides = [
     { id: 1, image: "/weekly-images/slider01.png", url: "/weekly-menu" },
     { id: 2, image: "/weekly-images/slider02.png", url: "/special-menu" },
@@ -117,10 +129,7 @@ const Food = () => {
 
   return (
     <div className="flex min-h-screen px-4 w-full">
-      
-
-      <div className="flex flex-col w-full ml-2 md:ml-14">
-        <div className="flex justify-end items-center gap-2 fixed z-10 pr-10 md:pr-24 bg-opacity-10 backdrop-blur-md py-3  bg-darkpeach h-max w-full">
+      <div className="flex justify-end items-center gap-2 fixed z-10 pr-10 md:pr-12 bg-opacity-10 backdrop-blur-md py-3  bg-darkpeach h-max w-full">
           <div
             className={`flex items-center duration-300 transition-all pr-2 py-1 rounded-xl ${
               isExpanded ? " bg-[#f0d5a6]" : "w-max"
@@ -155,8 +164,14 @@ const Food = () => {
             <IoCartSharp size={28} />
           </Link>
         </div>
+      <div className="flex flex-col w-full ml-2 md:ml-14">
+        <div>
+          <MainSection />
+        </div>
 
-        <div className="relative max-w-full overflow-hidden top-20">
+        
+
+        <div className="relative max-w-full overflow-hidden top-20 rounded-xl">
           <div
             className="relative w-full flex transition-transform duration-500 rounded-md"
             style={{ transform: `translateX(-${currentIndex * 100}%)` }}
@@ -173,7 +188,7 @@ const Food = () => {
               >
                 <Link
                   href={`${slide.url}`}
-                  className="text-sm absolute top-[40%] right-[30%] md:right-[40%] button-hover-effect-border bg-transparent rounded-full"
+                  className="text-sm absolute top-[40%] right-[30%] md:right-[40%] button-hover-effect bg-transparent rounded-full"
                 >
                   <span className="px-4"> Check now</span>
                 </Link>
@@ -209,6 +224,8 @@ const Food = () => {
             ))}
           </div>
         </div>
+
+        <div className="absolute top-1/2 left-1/2`"></div>
 
         <div className="flex flex-col items-center w-full mt-40">
           <h1
@@ -251,8 +268,14 @@ const Food = () => {
                   {filteredMenu.slice(0, 8).map((item) => (
                     <div
                       key={item.id}
-                      className="flex flex-col justify-between items-center max-w-sm rounded-xl shadow-lg bg-white transform transition duration-300 hover:scale-105 hover:shadow-2xl"
+                      className="flex flex-col slide-in-bck-center justify-between items-center max-w-sm rounded-xl shadow-lg bg-white transform transition duration-300 hover:scale-105 hover:shadow-2xl"
                     >
+                      <div className="bg-[#7e502b] absolute top-2 right-2 text-white px-2 py-1 rounded-full text-xs">
+                        <span className={`${chakra_petch.className}`}>
+                          {" "}
+                          {item.popular}
+                        </span>
+                      </div>
                       <Image
                         className="w-full h-56 object-cover rounded-t-lg"
                         src={item.image_url}
@@ -279,11 +302,7 @@ const Food = () => {
                             Rs {item.price}
                           </span>
                           <span className="text-lg font-bold">
-                            {item.ratings.fivestar}
-                            {item.ratings.fourstar}
-                            {item.ratings.threestar}
-                            {item.ratings.twostar}
-                            {item.ratings.onestar}
+                            {item.rating}/5 ⭐
                           </span>
                         </div>
                         <div className="flex -space-x-1 w-full">
@@ -329,8 +348,15 @@ const Food = () => {
             </div>
           )}
 
-          <Link href={"/special-menu"} className="text-sm button-hover-effect mt-10 mb-20 w-32 bg-transparent rounded-full">
-          <span className={`flex justify-center items-center gap-2 ${cinzel.className}`}>See More <IoMdArrowRoundForward /></span>
+          <Link
+            href={"/special-menu"}
+            className="text-sm button-hover-effect mt-10 mb-20 w-32 bg-transparent rounded-full"
+          >
+            <span
+              className={`flex justify-center items-center gap-2 ${cinzel.className}`}
+            >
+              See More <IoMdArrowRoundForward />
+            </span>
           </Link>
         </div>
 
